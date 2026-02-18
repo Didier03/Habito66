@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1072893471132",
+    "project_id": "habito66",
+    "storage_bucket": "habito66.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1072893471132:android:b52966bfd8491226918059",
+        "android_client_info": {
+          "package_name": "com.example.habito66"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpA8HA5XVUp7QgNfUBKRmuGFjtUPjl4kY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
