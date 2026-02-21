@@ -16,7 +16,7 @@ fun ItemsListHomeSection(modifier: Modifier = Modifier) {
         modifier = modifier.fillMaxWidth(),
         contentPadding = PaddingValues(16.dp)
     ) {
-        items(20) { index ->
+        items(8) { index ->
             Card(
                 modifier = Modifier
                     .fillMaxWidth()

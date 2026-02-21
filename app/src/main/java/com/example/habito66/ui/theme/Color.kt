@@ -35,6 +35,13 @@ object AppColors {
     val cardBackground: Color
         @Composable
         get() = if (isSystemInDarkTheme()) Color(0xFF1E1E1E) else Color(0xFFFFFFFF)
+    val statsSecondaryText: Color
+        @Composable
+        get() = if (isSystemInDarkTheme()) Color(0xFFB0B0B0) else Color(0xFF201A18).copy(alpha = 0.6f)
+    val statsPimaryText: Color
+        @Composable
+        get() = if (isSystemInDarkTheme()) Color(0xFFFF8A65) else Color(0xFF201A18)
+
     val backgraund: Color
         @Composable
         get() = if (isSystemInDarkTheme()) BackgroundDark else BackgroundLight
