@@ -36,7 +36,6 @@ fun StatsHomeSection() {
             .padding(horizontal = 20.dp, vertical = 8.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        // Cada tarjeta ahora tiene un ancho fijo de 167.dp y alto de 131.dp
         StatCard(
             modifier = Modifier.width(167.dp).height(131.dp),
             iconResourceId = R.drawable.icon_check,
@@ -74,7 +73,6 @@ private fun StatCard(
     subtitleStyle: TextStyle = InterMediumText.copy(fontSize = 10.sp),
     subtitleColor: Color = AppColors.secondaryColor
 ) {
-    // No imponemos una altura fija aquí para que el padre controle width/height.
     Box(
         modifier = modifier
             .background(AppColors.cardBackground, RoundedCornerShape(12.dp))
