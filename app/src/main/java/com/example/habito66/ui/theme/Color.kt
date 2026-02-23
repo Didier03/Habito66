@@ -1,5 +1,7 @@
 package com.example.habito66.ui.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 val Purple80 = Color(0xFFD0BCFF)
@@ -17,14 +19,36 @@ val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 val OrangePrimaryLight = Color(0xFFF25F1D)
-val BackgroundLight = Color(0xFFFFFFFF)
+val BackgroundLight = Color(0xFFFDF8F6)
 val SurfaceLight = Color(0xFFFDFDFD)
 val onPrimaryLight = Color(0xFFFFFFFF)
 val secondaryLigth = Color(0xFF2196F3)
 val onSurfaceLigth = Color(0xFF1A1A1A)
 val surfaceVariantLigth = Color(0xFFFFF2EB)
+object AppColors {
+    val titleText: Color
+        @Composable
+        get() = if (isSystemInDarkTheme()) Color(0xFFE0E0E0) else Color(0xFF1A1A1A)
+    val secondaryColor: Color
+        @Composable
+        get() = if (isSystemInDarkTheme()) Color(0xFFFF8A65) else Color(0xFFEC5B13)
+    val cardBackground: Color
+        @Composable
+        get() = if (isSystemInDarkTheme()) Color(0xFF1E1E1E) else Color(0xFFFFFFFF)
+    val statsSecondaryText: Color
+        @Composable
+        get() = if (isSystemInDarkTheme()) Color(0xFFB0B0B0) else Color(0xFF201A18).copy(alpha = 0.6f)
+    val habitCompletedColor: Color
+        @Composable
+        get() = if (isSystemInDarkTheme()) Color(0xFF2C2C2C) else Color(0xFFF2E8E4).copy(alpha = 0.5f)
+    val statsPimaryText: Color
+        @Composable
+        get() = if (isSystemInDarkTheme()) Color(0xFFFF8A65) else Color(0xFF201A18)
 
-
+    val backgraund: Color
+        @Composable
+        get() = if (isSystemInDarkTheme()) BackgroundDark else BackgroundLight
+}
 /**Colores específicos para cada hábito*/
 object HabitColors {
     val WaterLight = Color(0xFFE1F0FF)
