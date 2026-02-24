@@ -26,8 +26,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.habito66.R
 import com.example.habito66.ui.theme.AppColors
 
 enum class HabitItemState {
@@ -110,15 +112,14 @@ fun HabitItem(
             Box(
                 modifier = Modifier
                     .size(48.dp)
-                    .clip(CircleShape)
-                    .background(Color.Gray),
+                    .clip(CircleShape),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    imageVector = Icons.Default.CheckCircle,
+                    painter = painterResource(R.drawable.icon_racha),
                     contentDescription = "Completado",
-                    tint = Color.White,
-                    modifier = Modifier.size(28.dp)
+                    modifier = Modifier.size(48.dp),
+                    tint = AppColors.secondaryColor
                 )
             }
         }
