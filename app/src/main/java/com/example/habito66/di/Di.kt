@@ -1,0 +1,52 @@
+package com.example.habito66.di
+
+import com.example.habito66.core.network.createKtorClient
+import com.example.habito66.data.remote.api.KtorQuoteRemoteDataSource
+import com.example.habito66.data.remote.api.QuoteRemoteDataSource
+import com.example.habito66.data.repository.QuoteRepositoryImpl
+import com.example.habito66.domain.repository.QuoteRepository
+import com.example.habito66.domain.usecase.GetDailyQuoteUseCase
+import com.example.habito66.feature.home.HomeViewModel
+import org.koin.androidx.viewmodel.dsl.viewModelOf
+import org.koin.core.module.dsl.factoryOf
+import org.koin.core.module.dsl.singleOf
+import org.koin.core.qualifier.named
+import org.koin.dsl.bind
+import org.koin.dsl.module
+
+val networkModule = module {
+    // Cliente específico para ZenQuotes
+    single(named("ZenQuotesClient")) {
+        createKtorClient(baseUrl = "https://zenquotes.io/api/")
+    }
+    /** El día de mañana, tu propio backend:
+        single(named("MyBackendClient")) {
+        createKtorClient(baseUrl = "https://api.mi-habit-tracker.com/v1/")
+    }*/
+}
+
+val remoteDataSourceModule = module {
+    // Le decimos a Koin: "Inyecta el cliente llamado 'ZenQuotesClient' aquí"
+    single<QuoteRemoteDataSource> {
+        KtorQuoteRemoteDataSource(httpClient = get(named("ZenQuotesClient")))
+    }
+}
+val repositoryModule = module {
+    singleOf(::QuoteRepositoryImpl) bind QuoteRepository::class
+}
+
+val useCaseModule = module {
+    factoryOf(::GetDailyQuoteUseCase)
+}
+
+val presentationModule = module {
+    viewModelOf(::HomeViewModel)
+}
+
+val appModules = listOf(
+    networkModule,
+    remoteDataSourceModule,
+    repositoryModule,
+    useCaseModule,
+    presentationModule
+)
