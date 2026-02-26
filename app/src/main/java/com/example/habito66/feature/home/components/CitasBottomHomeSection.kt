@@ -11,23 +11,28 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.habito66.R
+import com.example.habito66.feature.home.QuoteUiState
 import com.example.habito66.ui.theme.AppColors
 import com.example.habito66.ui.theme.InterBoldItalicText
 import com.example.habito66.ui.theme.InterBoldText
 import com.example.habito66.ui.theme.InterMediumText
 
 @Composable
-fun CitasBottomHomeSection() {
+fun CitasBottomHomeSection(
+    uiState: QuoteUiState
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -49,19 +54,33 @@ fun CitasBottomHomeSection() {
                 tint = AppColors.secondaryColor
             )
             Spacer(modifier = Modifier.width(15.dp))
-            Column() {
-                Text(
-                    text = "\"El secreto para salir adelante es comenzar\"",
-                    style = InterBoldItalicText,
-                    color = AppColors.titleText,
-                    fontSize = 14.sp
-                )
-                Text(
-                    text = "— Mark Twain.",
-                    style = InterBoldText,
-                    color = AppColors.secondaryColor,
-                    fontSize = 12.sp
-                )
+            when (uiState) {
+                is QuoteUiState.Loading -> {
+                    CircularProgressIndicator(color = AppColors.secondaryColor)
+                }
+                is QuoteUiState.Success -> {
+                    Column {
+                        Text(
+                            text = "\"${uiState.quoteText}\"",
+                            style = InterBoldItalicText,
+                            color = AppColors.titleText,
+                            fontSize = 14.sp
+                        )
+                        Text(
+                            text = "— ${uiState.author}.",
+                            style = InterBoldText,
+                            color = AppColors.secondaryColor,
+                            fontSize = 12.sp
+                        )
+                    }
+                }
+                is QuoteUiState.Error -> {
+                    Text(
+                        text = uiState.message,
+                        color = Color.Red, // O un color de error de tu tema
+                        style = InterMediumText
+                    )
+                }
             }
         }
     }
