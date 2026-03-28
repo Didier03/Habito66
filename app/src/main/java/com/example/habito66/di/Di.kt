@@ -3,9 +3,11 @@ package com.example.habito66.di
 import com.example.habito66.core.network.createKtorClient
 import com.example.habito66.data.remote.api.KtorQuoteRemoteDataSource
 import com.example.habito66.data.remote.api.QuoteRemoteDataSource
+import com.example.habito66.data.repository.HabitRepositoryImpl
 import com.example.habito66.data.repository.QuoteRepositoryImpl
 import com.example.habito66.domain.repository.QuoteRepository
 import com.example.habito66.domain.usecase.GetDailyQuoteUseCase
+import com.example.habito66.feature.habits.CreateHabitViewModel
 import com.example.habito66.feature.home.HomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.dsl.factoryOf
@@ -33,6 +35,7 @@ val remoteDataSourceModule = module {
 }
 val repositoryModule = module {
     singleOf(::QuoteRepositoryImpl) bind QuoteRepository::class
+    singleOf(::HabitRepositoryImpl)
 }
 
 val useCaseModule = module {
@@ -41,6 +44,7 @@ val useCaseModule = module {
 
 val presentationModule = module {
     viewModelOf(::HomeViewModel)
+    viewModelOf(::CreateHabitViewModel)
 }
 
 val appModules = listOf(

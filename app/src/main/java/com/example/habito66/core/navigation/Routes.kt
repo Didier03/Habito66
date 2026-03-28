@@ -5,7 +5,7 @@ sealed class Routes(val route: String) {
     object Home : Routes("home")
     object Stats: Routes("stats")
     object Settings: Routes("settings")
-    object Detail : Routes("detail/{id}") {
-        fun createRoute(id: String) = "detail/$id"
+    object CreateHabits: Routes("createHabits/{id}"){
+        fun createRoute(id: String) = "createHabits/$id"
     }
 }
