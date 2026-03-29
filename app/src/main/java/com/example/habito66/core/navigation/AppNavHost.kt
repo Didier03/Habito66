@@ -11,7 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navArgument
-import com.example.habito66.feature.home.DetailScreen
+import com.example.habito66.feature.habits.AddEditHabitScreen
 import com.example.habito66.feature.home.HomeScreen
 import com.example.habito66.feature.login.LoginScreen
 import com.example.habito66.feature.settings.SettingsScreen
@@ -61,16 +61,16 @@ fun AppNavHost(
             // HOME
             composable(Routes.Home.route) {
                 HomeScreen(
-                    onNavigateToDetail = { id ->
+                    onNavigateToNewHabit = { id ->
                         navController.navigate(
-                            Routes.Detail.createRoute(id)
+                            Routes.CreateHabits.createRoute(id)
                         )
                     }
                 )
             }
-            // DETAIL
+            //create add habit screen
             composable(
-                route = Routes.Detail.route,
+                route = Routes.CreateHabits.route,
                 arguments = listOf(
                     navArgument("id") {
                         type = NavType.StringType
@@ -80,7 +80,12 @@ fun AppNavHost(
 
                 val id = backStackEntry.arguments?.getString("id") ?: ""
 
-                DetailScreen(id = id)
+                AddEditHabitScreen(
+                    id = id,
+                    onNavigateBack = {
+                        navController.popBackStack()
+                    }
+                )
             }
             // STATS
             composable(Routes.Stats.route) {

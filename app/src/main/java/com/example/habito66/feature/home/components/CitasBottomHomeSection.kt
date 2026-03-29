@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.habito66.R
@@ -77,7 +78,7 @@ fun CitasBottomHomeSection(
                 is QuoteUiState.Error -> {
                     Text(
                         text = uiState.message,
-                        color = Color.Red, // O un color de error de tu tema
+                        color = Color.Red,
                         style = InterMediumText
                     )
                 }
@@ -86,3 +87,19 @@ fun CitasBottomHomeSection(
     }
 }
 
+@Preview(showBackground = true )
+@Composable
+fun CitasBottomHomeSectionPreview() {
+    CitasBottomHomeSection(
+        uiState = QuoteUiState.Success(
+            quoteText = "La disciplina es el puente entre las metas y los logros.",
+            author = "Jim Rohn"
+        )
+    )
+}
+
+@Preview(showBackground = true, name = "Cargando")
+@Composable
+fun CitasBottomHomeSectionLoadingPreview() {
+    CitasBottomHomeSection(uiState = QuoteUiState.Loading)
+}

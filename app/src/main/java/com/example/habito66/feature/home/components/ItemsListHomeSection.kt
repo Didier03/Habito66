@@ -1,6 +1,9 @@
 package com.example.habito66.feature.home.components
 
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -20,6 +23,7 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,6 +34,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.habito66.R
+import com.example.habito66.domain.model.Habit
 import com.example.habito66.ui.theme.AppColors
 
 enum class HabitItemState {
@@ -127,18 +132,32 @@ fun HabitItem(
 }
 
 @Composable
-fun ItemsListHomeSection(modifier: Modifier = Modifier) {
+fun ItemsListHomeSection(
+    habits: List<Habit> = emptyList(),
+    onItemClick: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
     LazyColumn(
         modifier = modifier.fillMaxWidth(),
         contentPadding = PaddingValues(16.dp)
     ) {
-        items(8) { index ->
-            val state = if (index % 2 == 0) HabitItemState.NORMAL else HabitItemState.COMPLETED
+        items(
+            count = habits.size,
+            key = { index -> habits[index].id }
+        ) { index ->
+            val habit = habits[index]
+            val state = if (habit.isCompleted) HabitItemState.COMPLETED else HabitItemState.NORMAL
+            val interactionSource = remember { MutableInteractionSource() }
             HabitItem(
-                habitName = "Beber Agua",
-                habitProgress = "500/2000ml",
-                habitStreak = "5 dias de racha",
-                state = state
+                habitName = habit.name,
+                habitProgress = habit.progress,
+                habitStreak = habit.streak,
+                state = state,
+                modifier = Modifier.clickable(
+                    interactionSource = interactionSource,
+                    indication = LocalIndication.current,
+                    onClick = { onItemClick(habit.id) }
+                )
             )
             Spacer(modifier = Modifier.height(8.dp))
         }
@@ -148,7 +167,11 @@ fun ItemsListHomeSection(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun ItemsListHomeSectionPreview() {
-    ItemsListHomeSection()
+    ItemsListHomeSection(
+        habits = listOf(),
+        onItemClick = {},
+        modifier = Modifier
+    )
 }
 
 @Preview(showBackground = true)
@@ -172,4 +195,3 @@ fun HabitItemCompletedPreview() {
         state = HabitItemState.COMPLETED
     )
 }
-
