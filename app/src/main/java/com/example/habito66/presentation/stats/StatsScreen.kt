@@ -1,4 +1,4 @@
-package com.example.habito66.feature.stats
+package com.example.habito66.presentation.stats
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

@@ -1,4 +1,4 @@
-package com.example.habito66.feature.habits
+package com.example.habito66.presentation.habits
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

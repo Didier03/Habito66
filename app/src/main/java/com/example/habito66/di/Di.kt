@@ -7,8 +7,8 @@ import com.example.habito66.data.repository.HabitRepositoryImpl
 import com.example.habito66.data.repository.QuoteRepositoryImpl
 import com.example.habito66.domain.repository.QuoteRepository
 import com.example.habito66.domain.usecase.GetDailyQuoteUseCase
-import com.example.habito66.feature.habits.CreateHabitViewModel
-import com.example.habito66.feature.home.HomeViewModel
+import com.example.habito66.presentation.habits.CreateHabitViewModel
+import com.example.habito66.presentation.home.HomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf

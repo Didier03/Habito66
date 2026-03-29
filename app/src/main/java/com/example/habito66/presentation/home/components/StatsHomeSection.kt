@@ -1,4 +1,4 @@
-package com.example.habito66.feature.home.components
+package com.example.habito66.presentation.home.components
 
 
 import androidx.compose.foundation.background

@@ -1,4 +1,4 @@
-package com.example.habito66.feature.home
+package com.example.habito66.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

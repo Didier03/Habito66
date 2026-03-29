@@ -11,11 +11,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navArgument
-import com.example.habito66.feature.habits.AddEditHabitScreen
-import com.example.habito66.feature.home.HomeScreen
-import com.example.habito66.feature.login.LoginScreen
-import com.example.habito66.feature.settings.SettingsScreen
-import com.example.habito66.feature.stats.StatsScreen
+import com.example.habito66.presentation.habits.AddEditHabitScreen
+import com.example.habito66.presentation.home.HomeScreen
+import com.example.habito66.presentation.login.LoginScreen
+import com.example.habito66.presentation.settings.SettingsScreen
+import com.example.habito66.presentation.stats.StatsScreen
 
 @Composable
 fun AppNavHost(

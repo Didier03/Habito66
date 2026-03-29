@@ -1,4 +1,4 @@
-package com.example.habito66.feature.habits
+package com.example.habito66.presentation.habits
 
 import androidx.lifecycle.ViewModel
 import com.example.habito66.data.repository.HabitRepositoryImpl

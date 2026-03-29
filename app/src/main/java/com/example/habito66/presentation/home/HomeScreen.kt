@@ -1,4 +1,4 @@
-package com.example.habito66.feature.home
+package com.example.habito66.presentation.home
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,10 +13,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.habito66.feature.home.components.CitasBottomHomeSection
-import com.example.habito66.feature.home.components.HeaderHomeSection
-import com.example.habito66.feature.home.components.ItemsListHomeSection
-import com.example.habito66.feature.home.components.StatsHomeSection
+import com.example.habito66.presentation.home.components.CitasBottomHomeSection
+import com.example.habito66.presentation.home.components.HeaderHomeSection
+import com.example.habito66.presentation.home.components.ItemsListHomeSection
+import com.example.habito66.presentation.home.components.StatsHomeSection
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
