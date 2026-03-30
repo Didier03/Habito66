@@ -17,7 +17,9 @@ import com.example.habito66.presentation.home.components.CitasBottomHomeSection
 import com.example.habito66.presentation.home.components.HeaderHomeSection
 import com.example.habito66.presentation.home.components.ItemsListHomeSection
 import com.example.habito66.presentation.home.components.StatsHomeSection
+import com.google.protobuf.LazyStringArrayList.emptyList
 import org.koin.androidx.compose.koinViewModel
+import kotlin.collections.emptyList
 
 @Composable
 fun HomeScreen(

@@ -5,7 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.habito66.data.repository.HabitRepositoryImpl
 import com.example.habito66.domain.usecase.GetDailyQuoteUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -22,7 +24,11 @@ class HomeViewModel(
 
     private val _quoteState = MutableStateFlow<QuoteUiState>(QuoteUiState.Loading)
     val quoteState = _quoteState.asStateFlow()
-    val habitsList = habitRepository.habits
+    val habitsList = habitRepository.habits.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000), // Evita reconexiones si giras la pantalla rápido
+        initialValue = emptyList() // El valor inicial lo dicta el ViewModel, no la UI
+    )
 
     init {
         fetchDailyQuote()
