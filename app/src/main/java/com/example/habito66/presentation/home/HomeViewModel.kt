@@ -26,8 +26,8 @@ class HomeViewModel(
     val quoteState = _quoteState.asStateFlow()
     val habitsList = habitRepository.habits.stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000), // Evita reconexiones si giras la pantalla rápido
-        initialValue = emptyList() // El valor inicial lo dicta el ViewModel, no la UI
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = emptyList()
     )
 
     init {

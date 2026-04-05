@@ -51,21 +51,21 @@ fun AddEditHabitScreen (
         modifier = Modifier
             .fillMaxSize()
             .padding(24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally // Quitamos verticalArrangement para que empiece arriba
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(text = screenTitle, style = MaterialTheme.typography.headlineMedium)
 
-        // Botón de eliminar solo visible si ya existe el hábito
+
         if (isEditing) {
             IconButton(onClick = {
                 viewModel.deleteHabit(id = id) {
-                    onNavigateBack() // Regresamos al Home después de borrar
+                    onNavigateBack()
                 }
             }) {
                 Icon(
                     imageVector = Icons.Filled.Delete,
                     contentDescription = "Delete Habit",
-                    tint = MaterialTheme.colorScheme.error // Rojo nativo del tema
+                    tint = MaterialTheme.colorScheme.error
                 )
             }
         }

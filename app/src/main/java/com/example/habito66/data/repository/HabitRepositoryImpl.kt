@@ -2,6 +2,7 @@ package com.example.habito66.data.repository
 
 import com.example.habito66.data.local.dao.HabitDao
 import com.example.habito66.data.local.entity.HabitEntity
+import com.example.habito66.data.local.entity.toEntity
 import com.example.habito66.domain.model.Habit
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -40,5 +41,7 @@ class HabitRepositoryImpl(
     suspend fun deleteHabit(id: String) {
         habitDao.deleteHabitById(id)
     }
-
+    suspend fun insertHabit(habit: Habit) {
+        habitDao.insertHabit(habit.toEntity())
+    }
 }

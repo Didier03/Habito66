@@ -3,34 +3,47 @@ package com.example.habito66.presentation.habits
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.habito66.data.repository.HabitRepositoryImpl
+import com.example.habito66.domain.model.Habit
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class CreateHabitViewModel(
     private val habitRepository: HabitRepositoryImpl
 ) : ViewModel() {
+
+    private val _uiEvent = Channel<HomeUiEvent>(Channel.BUFFERED)
+    val uiEvent = _uiEvent.receiveAsFlow()
+
+    private var recentlyDeletedHabit: Habit? = null
     fun getInitialHabitName(id: String, onResult: (String) -> Unit) {
         viewModelScope.launch {
-            // Buscamos en Room en un hilo secundario
             val name = habitRepository.getHabitById(id)?.name ?: ""
-            // Devolvemos el resultado a la UI
             onResult(name)
         }
     }
     fun saveOrUpdateHabit(id: String, name: String, onSuccess: () -> Unit) {
         if (name.isNotBlank()) {
             viewModelScope.launch {
-                // Guardamos en Room en un hilo secundario
                 habitRepository.saveOrUpdateHabit(id, name)
 
-                // Avisamos a la UI que terminamos para que haga el popBackStack()
                 onSuccess()
             }
         }
     }
-    fun deleteHabit(id: String, onSuccess: () -> Unit) {
+    fun deleteHabit(habit: Habit) {
         viewModelScope.launch {
-            habitRepository.deleteHabit(id)
-            onSuccess()
+            recentlyDeletedHabit = habit
+            habitRepository.deleteHabit(habit.id)
+            _uiEvent.send(HomeUiEvent.ShowUndoSnackbar(habit))
+        }
+    }
+    fun undoDelete() {
+        viewModelScope.launch {
+            recentlyDeletedHabit?.let { habit ->
+                habitRepository.insertHabit(habit)
+                recentlyDeletedHabit = null
+            }
         }
     }
 }
