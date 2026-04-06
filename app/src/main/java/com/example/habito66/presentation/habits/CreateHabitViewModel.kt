@@ -31,6 +31,12 @@ class CreateHabitViewModel(
             }
         }
     }
+    fun deleteHabitById(id: String, onSuccess: () -> Unit) {
+        viewModelScope.launch {
+            habitRepository.deleteHabit(id)
+            onSuccess()
+        }
+    }
     fun deleteHabit(habit: Habit) {
         viewModelScope.launch {
             recentlyDeletedHabit = habit

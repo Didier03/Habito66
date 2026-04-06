@@ -58,7 +58,7 @@ fun AddEditHabitScreen (
 
         if (isEditing) {
             IconButton(onClick = {
-                viewModel.deleteHabit(id = id) {
+                viewModel.deleteHabitById(id = id) {
                     onNavigateBack()
                 }
             }) {
