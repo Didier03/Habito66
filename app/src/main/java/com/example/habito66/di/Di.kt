@@ -40,6 +40,9 @@ val networkModule = module {
     single(named("ZenQuotesClient")) {
         createKtorClient(baseUrl = "https://zenquotes.io/api/")
     }
+    single(named("FraceDelDiaClient")) {
+        createKtorClient(baseUrl = "https://frasedeldia.azurewebsites.net/api/")
+    }
     /** El día de mañana, tu propio backend:
         single(named("MyBackendClient")) {
         createKtorClient(baseUrl = "https://api.mi-habit-tracker.com/v1/")
@@ -49,7 +52,7 @@ val networkModule = module {
 val remoteDataSourceModule = module {
     // Le decimos a Koin: "Inyecta el cliente llamado 'ZenQuotesClient' aquí"
     single<QuoteRemoteDataSource> {
-        KtorQuoteRemoteDataSource(httpClient = get(named("ZenQuotesClient")))
+        KtorQuoteRemoteDataSource(httpClient = get(named("FraceDelDiaClient")))
     }
 }
 val repositoryModule = module {
