@@ -1,4 +1,4 @@
-package com.example.habito66.feature.home.components
+package com.example.habito66.presentation.home.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
@@ -26,7 +25,6 @@ import androidx.compose.ui.unit.sp
 import com.example.habito66.ui.theme.AppColors
 import com.example.habito66.ui.theme.InterBoldText
 import com.example.habito66.ui.theme.InterLightText
-import com.example.habito66.ui.theme.InterMediumText
 import com.example.habito66.utils.formattedDate
 
 @Composable

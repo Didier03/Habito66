@@ -1,11 +1,17 @@
-package com.example.habito66.feature.home
+package com.example.habito66.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.habito66.data.repository.HabitRepositoryImpl
+import com.example.habito66.domain.model.Habit
 import com.example.habito66.domain.usecase.GetDailyQuoteUseCase
+import com.example.habito66.presentation.habits.HomeUiEvent
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -22,7 +28,15 @@ class HomeViewModel(
 
     private val _quoteState = MutableStateFlow<QuoteUiState>(QuoteUiState.Loading)
     val quoteState = _quoteState.asStateFlow()
-    val habitsList = habitRepository.habits
+    val habitsList = habitRepository.habits.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = emptyList()
+    )
+
+    private var recentlyDeletedHabit: Habit? = null
+    private val _uiEvent = Channel<HomeUiEvent>()
+    val uiEvent = _uiEvent.receiveAsFlow()
 
     init {
         fetchDailyQuote()
@@ -40,6 +54,22 @@ class HomeViewModel(
                     _quoteState.update { QuoteUiState.Error("Error al cargar la cita.") }
                 }
             )
+        }
+    }
+    fun deleteHabitHome(habit: Habit) {
+        viewModelScope.launch {
+            recentlyDeletedHabit = habit
+            habitRepository.deleteHabit(habit.id)
+            _uiEvent.send(HomeUiEvent.ShowUndoSnackbar(habit))
+        }
+    }
+
+    fun undoDeleteHome() {
+        viewModelScope.launch {
+            recentlyDeletedHabit?.let { habit ->
+                habitRepository.saveOrUpdateHabit(id = habit.id, name = habit.name)
+                recentlyDeletedHabit = null
+            }
         }
     }
 }

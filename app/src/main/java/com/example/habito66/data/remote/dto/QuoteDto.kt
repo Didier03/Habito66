@@ -6,8 +6,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class QuoteDto(
-    @SerialName("q") val text: String,
-    @SerialName("a") val author: String
+    @SerialName("phrase") val text: String,
+    @SerialName("author") val author: String
 ) {
     // Mapper (Función de extensión) para convertir de DTO a Entidad de Dominio
     fun toDomain(): Quote = Quote(text = text, author = author)

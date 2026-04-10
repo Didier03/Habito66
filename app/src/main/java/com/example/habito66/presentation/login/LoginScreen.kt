@@ -1,4 +1,4 @@
-package com.example.habito66.feature.login
+package com.example.habito66.presentation.login
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

@@ -1,4 +1,4 @@
-package com.example.habito66.feature.home.components
+package com.example.habito66.presentation.home.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -24,7 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.habito66.R
-import com.example.habito66.feature.home.QuoteUiState
+import com.example.habito66.presentation.home.QuoteUiState
 import com.example.habito66.ui.theme.AppColors
 import com.example.habito66.ui.theme.InterBoldItalicText
 import com.example.habito66.ui.theme.InterBoldText
