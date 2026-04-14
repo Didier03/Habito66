@@ -164,11 +164,13 @@ fun ItemsListHomeSection(
                     } else {
                         false
                     }
-                }
+                },
+                positionalThreshold = { totalDistance -> totalDistance * 0.8f }
             )
             SwipeToDismissBox(
                 state = dismissState,
                 modifier = modifier.fillMaxSize(),
+                enableDismissFromStartToEnd = false,
                 backgroundContent = {
                     val color = if (dismissState.targetValue == SwipeToDismissBoxValue.EndToStart)
                         MaterialTheme.colorScheme.errorContainer else Color.Transparent
