@@ -19,6 +19,7 @@ kotlinxSerializationCore = "1.10.0"
 kotlinSerialization = "2.2.21"
 firebaseBom = "33.9.0" # Versión estable a febrero 2026
 googleServices = "4.4.2"
+firebaseCrashlytics = "3.0.3"
 
 
 [libraries]
@@ -64,6 +65,7 @@ firebase-auth = { group = "com.google.firebase", name = "firebase-auth-ktx" }
 firebase-config = { group = "com.google.firebase", name = "firebase-config-ktx" }
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore-ktx" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -71,4 +73,5 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization"}
 google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlytics" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

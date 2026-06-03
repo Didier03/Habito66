@@ -13,10 +13,8 @@ class KtorQuoteRemoteDataSource(
     override suspend fun fetchDailyQuote(): QuoteDto {
         val rawString: String = httpClient.get("phrase").body()
 
-        // 2. Le quitamos las comillas del principio y final, y limpiamos las barras invertidas
         val cleanJson = rawString.trim('"').replace("\\\"", "\"")
 
-        // 3. Forzamos la deserialización manual
         return Json { ignoreUnknownKeys = true }.decodeFromString(cleanJson)
     }
 }
