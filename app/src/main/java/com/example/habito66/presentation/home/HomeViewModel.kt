@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.habito66.data.repository.HabitRepositoryImpl
 import com.example.habito66.domain.model.Habit
+import com.example.habito66.domain.repository.HabitRepository
 import com.example.habito66.domain.usecase.GetDailyQuoteUseCase
 import com.example.habito66.presentation.habits.HomeUiEvent
 import kotlinx.coroutines.channels.Channel
@@ -23,7 +24,7 @@ sealed interface QuoteUiState {
 
 class HomeViewModel(
     private val getDailyQuoteUseCase: GetDailyQuoteUseCase,
-    private val habitRepository: HabitRepositoryImpl
+    private val habitRepository: HabitRepository
 ) : ViewModel() {
 
     private val _quoteState = MutableStateFlow<QuoteUiState>(QuoteUiState.Loading)

@@ -8,6 +8,7 @@ import com.example.habito66.data.remote.api.KtorQuoteRemoteDataSource
 import com.example.habito66.data.remote.api.QuoteRemoteDataSource
 import com.example.habito66.data.repository.HabitRepositoryImpl
 import com.example.habito66.data.repository.QuoteRepositoryImpl
+import com.example.habito66.domain.repository.HabitRepository
 import com.example.habito66.domain.repository.QuoteRepository
 import com.example.habito66.domain.usecase.GetDailyQuoteUseCase
 import com.example.habito66.presentation.habits.CreateHabitViewModel
@@ -57,7 +58,8 @@ val remoteDataSourceModule = module {
 }
 val repositoryModule = module {
     singleOf(::QuoteRepositoryImpl) bind QuoteRepository::class
-    singleOf(::HabitRepositoryImpl)
+    singleOf(::HabitRepositoryImpl) bind HabitRepository::class
+
 }
 
 val useCaseModule = module {

@@ -20,9 +20,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.habito66.ui.theme.AppColors
+import com.example.habito66.ui.theme.Habito66Theme
 import com.example.habito66.ui.theme.InterBoldText
 import com.example.habito66.ui.theme.InterLightText
 import com.example.habito66.utils.formattedDate
@@ -57,6 +59,14 @@ fun HeaderHomeSection() {
                 modifier = Modifier.size(28.dp)
             )
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun HeaderHomeSectionPreview() {
+    Habito66Theme {
+        HeaderHomeSection()
     }
 }
 

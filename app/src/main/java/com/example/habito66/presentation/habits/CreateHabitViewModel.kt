@@ -4,52 +4,60 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.habito66.data.repository.HabitRepositoryImpl
 import com.example.habito66.domain.model.Habit
+import com.example.habito66.domain.repository.HabitRepository
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class CreateHabitViewModel(
-    private val habitRepository: HabitRepositoryImpl
+    private val habitRepository: HabitRepository
 ) : ViewModel() {
+    private val _formState = MutableStateFlow(HabitFormState())
+    val formState: StateFlow<HabitFormState> = _formState.asStateFlow()
 
-    private val _uiEvent = Channel<HomeUiEvent>(Channel.BUFFERED)
-    val uiEvent = _uiEvent.receiveAsFlow()
+    private val _navigationEvent = Channel<Unit>(Channel.BUFFERED)
+    val navigationEvent = _navigationEvent.receiveAsFlow()
 
-    private var recentlyDeletedHabit: Habit? = null
-    fun getInitialHabitName(id: String, onResult: (String) -> Unit) {
+    fun loadHabit(id: String) {
         viewModelScope.launch {
-            val name = habitRepository.getHabitById(id)?.name ?: ""
-            onResult(name)
+            val habit = habitRepository.getHabitById(id) ?: return@launch
+            _formState.update { it.copy(name = habit.name) }
         }
     }
-    fun saveOrUpdateHabit(id: String, name: String, onSuccess: () -> Unit) {
-        if (name.isNotBlank()) {
-            viewModelScope.launch {
-                habitRepository.saveOrUpdateHabit(id, name)
 
-                onSuccess()
-            }
+    fun onNameChange(name: String) =
+        _formState.update { it.copy(name = name) }
+
+    fun onIconSelected(index: Int) =
+        _formState.update { it.copy(selectedIconIndex = index) }
+
+    fun onColorSelected(index: Int) =
+        _formState.update { it.copy(selectedColorIndex = index) }
+
+    fun onRepeatModeChange(mode: RepeatMode) =
+        _formState.update { it.copy(repeatMode = mode) }
+
+    fun onGoalIncrement() =
+        _formState.update { it.copy(goal = (it.goal + 1).coerceAtMost(99)) }
+
+    fun onGoalDecrement() =
+        _formState.update { it.copy(goal = (it.goal - 1).coerceAtLeast(1)) }
+
+    fun saveOrUpdateHabit(id: String) {
+        if (_formState.value.name.isBlank()) return
+        viewModelScope.launch {
+            habitRepository.saveOrUpdateHabit(id, _formState.value.name)
+            _navigationEvent.send(Unit)
         }
     }
     fun deleteHabitById(id: String, onSuccess: () -> Unit) {
         viewModelScope.launch {
             habitRepository.deleteHabit(id)
             onSuccess()
-        }
-    }
-    fun deleteHabit(habit: Habit) {
-        viewModelScope.launch {
-            recentlyDeletedHabit = habit
-            habitRepository.deleteHabit(habit.id)
-            _uiEvent.send(HomeUiEvent.ShowUndoSnackbar(habit))
-        }
-    }
-    fun undoDelete() {
-        viewModelScope.launch {
-            recentlyDeletedHabit?.let { habit ->
-                habitRepository.insertHabit(habit)
-                recentlyDeletedHabit = null
-            }
         }
     }
 }

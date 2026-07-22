@@ -4,6 +4,7 @@ import com.example.habito66.data.local.dao.HabitDao
 import com.example.habito66.data.local.entity.HabitEntity
 import com.example.habito66.data.local.entity.toEntity
 import com.example.habito66.domain.model.Habit
+import com.example.habito66.domain.repository.HabitRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,11 +15,11 @@ import java.util.UUID
 
 class HabitRepositoryImpl(
     private val habitDao: HabitDao
-) {
-    val habits: Flow<List<Habit>> = habitDao.getAllHabits().map { entities ->
+) : HabitRepository {
+    override val habits: Flow<List<Habit>> = habitDao.getAllHabits().map { entities ->
         entities.map { it.toDomain() }
     }
-    suspend fun saveOrUpdateHabit(id: String, name: String) {
+    override suspend fun saveOrUpdateHabit(id: String, name: String) {
         val finalId = if (id == "new_habit") UUID.randomUUID().toString() else id
 
         val currentHabit = if (id != "new_habit") habitDao.getHabitById(id) else null
@@ -34,14 +35,14 @@ class HabitRepositoryImpl(
         habitDao.insertHabit(entity)
     }
 
-    suspend fun getHabitById(id: String): Habit? {
+    override suspend fun getHabitById(id: String): Habit? {
         return habitDao.getHabitById(id)?.toDomain()
     }
 
-    suspend fun deleteHabit(id: String) {
+    override suspend fun deleteHabit(id: String) {
         habitDao.deleteHabitById(id)
     }
-    suspend fun insertHabit(habit: Habit) {
+    override suspend fun insertHabit(habit: Habit) {
         habitDao.insertHabit(habit.toEntity())
     }
 }
